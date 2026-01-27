@@ -27,7 +27,17 @@
             window.location.href = deepLink;
 
             // 2. 0.5초 뒤 한 번 더 시도 (브라우저 특성 대비)
-            setTimeout(() => { window.location.href = deepLink; }, 500);
+            const start = Date.now();
+            setTimeout(() => {
+                const now = Date.now();
+                // 브라우저가 백그라운드로 갔다면(앱 실행 성공) 시간이 많이 흘러있을 것이고,
+                // 계속 브라우저에 머물러 있다면(앱 실행 실패) 약 2.5초만 흘렀을 것입니다.
+                if (now - start < 3000) { 
+                    if (confirm("앱이 설치되어 있지 않은 것 같습니다. 설치 페이지로 이동할까요?")) {
+                        window.location.href = playStoreUrl;
+                    }
+                }
+            }, 2500);
         } else {
             document.body.innerHTML = "<h2>잘못된 접근입니다.</h2>";
         }
