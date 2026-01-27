@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>일정 가져오기 - ScheduleShare</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; padding-top: 50px; }
+        .btn { display: inline-block; padding: 15px 30px; background: #4CAF50; color: white; text-decoration: none; border-radius: 5px; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h2>일정 정보를 확인하고 있습니다...</h2>
+    <p>앱이 설치되어 있다면 자동으로 실행됩니다.</p>
+    
+    <a href="#" id="manual-link" class="btn">일정 수동으로 가져오기</a>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const data = urlParams.get('data');
+
+        if (data) {
+            const deepLink = "myschedule://share?data=" + data;
+            document.getElementById('manual-link').href = deepLink;
+
+            // 1. 즉시 실행 시도
+            window.location.href = deepLink;
+
+            // 2. 0.5초 뒤 한 번 더 시도 (브라우저 특성 대비)
+            setTimeout(() => { window.location.href = deepLink; }, 500);
+        } else {
+            document.body.innerHTML = "<h2>잘못된 접근입니다.</h2>";
+        }
+    </script>
+</body>
+</html>
