@@ -41,6 +41,12 @@
         } else {
             document.body.innerHTML = "<h2>잘못된 접근입니다.</h2>";
         }
+         // 2. 약간의 시간차를 두고 창 닫기 시도
+  setTimeout(function() {
+    window.close();
+    // 일부 브라우저(인앱 브라우저 등)를 위한 보완 코드
+    self.close();
+  }, 1000); // 1초 후 실행
     </script>
 </body>
 </html>
